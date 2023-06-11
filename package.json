@@ -1,0 +1,29 @@
+{
+  "name": "eatnow",
+  "version": "1.0.0",
+  "description": "This is food ordering website",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manish079/EatsNow.git"
+  },
+  "author": "Manish Prajapati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manish079/EatsNow/issues"
+  },
+  "homepage": "https://github.com/manish079/EatsNow#readme",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "parcel": "^2.9.2",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
