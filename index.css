@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bg-color: #fff;
+  --primary-text-color: #000;
+  --secondary-text-color: #333;
+  --primary-accent-color: red;
+  --secondary-accent-color: purple;
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Lato", sans-serif;
+  background-color: var(--bg-color);
+}
+
+.small-text-bold {
+  font-weight: 600;
+}
+.container {
+  width: 1280px;
+  margin: auto;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+  color: var(--secondary-text-color);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 3.6rem;
+}
+h2 {
+  font-size: 3rem;
+}
+h3 {
+  font-size: 2.4rem;
+}
+h4 {
+  font-size: 2rem;
+}
+h5 {
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+li {
+  list-style: none;
+  cursor: pointer;
+}
+
+header {
+  align-items: center;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  height: 6rem;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);
+}
+header > .flex > nav > ul {
+  column-gap: 5rem;
+}
+header > .flex > nav > ul > li > a {
+  transition: color 0.3s ease;
+}
+header > .flex > nav > ul > li > a:hover {
+  color: var(--primary-accent-color);
+}
+.active {
+  color: var(--primary-accent-color);
+}
+.restaurant-card {
+  width: 280px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border-radius: 6px;
+}
+.restaurant-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+.restaurant-card h3 {
+  font-size: 2rem;
+  padding: 5px 2px;
+}
+.restaurant-card h5 {
+  padding: 5px 2px;
+  font-size: 1.4rem;
+  color: var(--secondary-text-color);
+}
