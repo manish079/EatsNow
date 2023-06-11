@@ -1163,12 +1163,7 @@ const Body = () => {
       {/* pass key as a props */}
       {/* keys helps in rendered only specific divs that newly added */}
       {restaurantList.map((restaurant, index) => {
-        return (
-          <RestaurantCard
-            {...restaurantList[index].info}
-            key={restaurantList[index].info.id}
-          />
-        );
+        return <RestaurantCard {...restaurant.info} key={restaurant.info.id} />;
       })}
     </section>
   );

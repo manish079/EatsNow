@@ -19,6 +19,7 @@
   "homepage": "https://github.com/manish079/EatsNow#readme",
   "devDependencies": {
     "@babel/core": "^7.22.5",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "parcel": "^2.9.2",
     "process": "^0.11.10"
   },
