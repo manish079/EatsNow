@@ -2,7 +2,7 @@
   "name": "eatnow",
   "version": "1.0.0",
   "description": "This is food ordering website",
-  "main": "index.js",
+  "main": "App.js",
   "scripts": {
     "start": "parcel index.html",
     "test": "jest"

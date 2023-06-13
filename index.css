@@ -72,27 +72,35 @@ header {
   position: sticky;
   top: 0;
   backdrop-filter: blur(10px);
-  height: 6rem;
+  height: 7rem;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);
 }
+header .logo h1 {
+  color: var(--secondary-accent-color);
+}
 header > .flex > nav > ul {
-  column-gap: 5rem;
+  /* column-gap: 5rem; */
 }
 header > .flex > nav > ul > li > a {
-  transition: color 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 0 5px;
+  transition: all 0.3s ease-out;
 }
 header > .flex > nav > ul > li > a:hover {
-  color: var(--primary-accent-color);
+  background-color: var(--secondary-accent-color);
+  color: var(--color-white);
 }
 .active {
-  color: var(--primary-accent-color);
+  background-color: var(--secondary-accent-color);
+  color: var(--color-white);
 }
 .restaurant-card {
   width: 280px;
   margin: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 10px;
   transition: scale 0.3s;
 }
 .restaurant-card:hover {
