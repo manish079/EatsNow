@@ -74,6 +74,7 @@ header {
   backdrop-filter: blur(10px);
   height: 7rem;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 999;
 }
 header .logo h1 {
   color: var(--secondary-accent-color);
@@ -95,16 +96,20 @@ header > .flex > nav > ul > li > a:hover {
   background-color: var(--secondary-accent-color);
   color: var(--color-white);
 }
+.restaurant-section {
+  margin-top: 20px;
+}
 .restaurant-card {
   width: 280px;
   margin: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   border-radius: 10px;
-  transition: scale 0.3s;
+  transition: all 0.3s;
 }
 .restaurant-card:hover {
   scale: 1.03;
+  box-shadow: 0 0 10px 1px var(--secondary-accent-color);
 }
 .restaurant-card img {
   width: 100%;
@@ -119,4 +124,28 @@ header > .flex > nav > ul > li > a:hover {
   padding: 5px 2px;
   font-size: 1.4rem;
   color: var(--secondary-text-color);
+}
+
+.search-box {
+  display: flex;
+  height: 40px;
+  width: 50%;
+}
+.search-box .search-rest {
+  width: 100%;
+  padding: 3px 16px;
+  border: none;
+  outline: none;
+  border-radius: 40px 0 0 40px;
+  background-color: #f0f0f0;
+  border: 1px solid var(--secondary-accent-color);
+}
+.search-box .search-btn {
+  padding: 3px 10px;
+  width: 64px;
+  border: 1px solid var(--secondary-accent-color);
+  cursor: pointer;
+  border-radius: 0 40px 40px 0;
+  background-color: var(--secondary-accent-color);
+  color: white;
 }
