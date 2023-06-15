@@ -1,7 +1,12 @@
-// Hard core data
+// HardCore data
 
 export const IMG_CDN =
   "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_628,h_704/";
+
+export const API =
+  "https://www.swiggy.com/mapi/homepage/getCards?lat=12.9715987&lng=77.5945627";
+
+export const shimmer_card_unit = 8;
 
 export const restaurantList = [
   {

@@ -1,8 +1,9 @@
 import { RestaurantCard } from "./RestaurantCard";
-import { restaurantList } from "../constant";
-import { useState } from "react";
+import { restaurantList, API } from "../constant";
+import { useEffect, useState } from "react";
+import Shimmer from "./ShimmerUI";
 
-// Function to filter the restaurants based on the searchText
+// Function to filter the restaurants based on the user input type
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
     restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase())
@@ -12,36 +13,66 @@ function filterData(searchText, restaurants) {
   return filterData;
 }
 
+// Body Component for body section: It contain all restaurant cards
 export const Body = () => {
-  //Hook:- provide way to manage state
-  //State:- it can hold different types of data.
-  /**
-   *  state is a built-in feature that allows us to manage and store data within a component. It represents the current state of the component, such as user input, data fetched from an API, or any other dynamic information that can change over time.
-   */
-  //Every component has its own state
-  // useState hook returns an array with two elements: the current state value and a function to update the state.
+  const [searchText, setSearchText] = useState("");
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filterRestaurants, setFilterRestaurants] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // const [inputText, setInputText] = useState("Adipurush");  //Default value in input text is "Adipurush"
+  // use useEffect for one time call getRestaurants using empty dependency array
+  //Loads -> Render -> API -> UpdateUI
+  useEffect(() => {
+    getRestaurants(); // API calling
+  }, []);
 
-  // const inputText = ""  //JS Way of writing variable
+  // async function getRestaurant to fetch Swiggy API data
+  async function getRestaurants() {
+    try {
+      const response = await fetch(API);
+      const jsonData = await response?.json();
 
-  const [searchText, setSearchText] = useState();
+      // updated state variable restaurants with Swiggy API data
+      setAllRestaurants(
+        jsonData?.data?.success?.cards[5]?.gridWidget?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
 
-  const [restaurants, setRestaurants] = useState(restaurantList);
-  //inputText is a state  variable
-  console.log(searchText);
+      setFilterRestaurants(
+        jsonData?.data?.success?.cards[5]?.gridWidget?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  /**
-   * Why we need state variable
-   * React has One Way Data-Binding. for 2ways we can use additional things
-   * If I use normal local variable inside component and ex. a=10 and let's assume I update this a in some other component then react don't now a is updated. To track of a We use in react something "state". that keep track of variables inside component
-   */
+  // use searchData function and set condition if data is empty show error message
+  function searchRestaurants(searchText, restaurants) {
+    if (searchText !== "") {
+      const data = filterData(searchText, restaurants);
+      setErrorMessage("");
+      if (data.length === 0) {
+        setErrorMessage("No restaurant found!!");
+      }
+      return data;
+    } else {
+      setErrorMessage("");
+      return restaurants;
+    }
+  }
 
-  /**
-   * Every-time state-variable changes react keep track of and rerender component every-time. It's use Reconciliation(Diff Algo) behind the scene ans update those whose element value changed so react is faster
-   */
+  // if allRestaurants is empty don't render restaurants cards
+  if (!allRestaurants) {
+    return null;
+  }
 
-  return (
+  //Conditional Rendering
+  // if restaurants data is not fetched then display Shimmer UI after the fetched data display restaurants cards
+
+  return allRestaurants?.length == 0 ? (
+    <Shimmer />
+  ) : (
     <section className="restaurant-section ">
       <div className="search-box container">
         {/* Input field for searching */}
@@ -49,43 +80,46 @@ export const Body = () => {
           className="search-rest"
           type="text"
           value={searchText}
-          placeholder="Search..."
-          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search a restaurant you want..."
+          onChange={(e) => {
+            setSearchText(e.target.value);
+            // when user will enter the data, it automatically called searchData function
+            searchRestaurants(e.target.value, allRestaurants);
+            const data = searchRestaurants(e.target.value, allRestaurants);
+            setFilterRestaurants(data);
+          }}
         />
+
         {/* Button to trigger the search */}
         <button
           className="search-btn"
           onClick={() => {
             // Filter the data based on the search text
-            const data = filterData(searchText, restaurants);
+            const data = searchRestaurants(searchText, allRestaurants);
             // Update the state of restaurants list with filtered data
-            setRestaurants(data);
+            setFilterRestaurants(data);
           }}
         >
           Search
         </button>
       </div>
-      <div className="restaurant-list flex container">
-        {/* Render the RestaurantCard component for each restaurant */}
 
-        {/* <RestaurantCard {...restaurantList[0].info} />
-        <RestaurantCard {...restaurantList[1].info} />
-        <RestaurantCard {...restaurantList[2].info} />
-        <RestaurantCard {...restaurantList[3].info} />
-        <RestaurantCard {...restaurantList[4].info} />
-        <RestaurantCard {...restaurantList[5].info} />
-        <RestaurantCard {...restaurantList[6].info} />
-        <RestaurantCard {...restaurantList[7].info} /> */}
+      {errorMessage && <div className="error-container">{errorMessage}</div>}
 
-        {/* pass key as a props */}
-        {/* keys helps in rendered only specific divs that newly added */}
-
-        {restaurants.map((restaurant, index) => {
-          return (
-            <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
-          );
-        })}
-      </div>
+      {allRestaurants?.length == 0 ? (
+        <Shimmer />
+      ) : (
+        <div className="restaurant-list flex container">
+          {/* always pass key as a props */}
+          {/* keys helps in rendered only specific elements that newly added (reconciliation(diff algo))*/}
+          {/* We are mapping restaurants array and passing JSON array data to RestaurantCard component as props with unique key as restaurant.data.id */}
+          {filterRestaurants.map((restaurant, index) => {
+            return (
+              <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };
