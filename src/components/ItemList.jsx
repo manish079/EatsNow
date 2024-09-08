@@ -56,12 +56,15 @@ const ItemList = ({ items }) => {
             <p className="text-xs">{item?.card?.info?.description}</p>
           </div>
           <div className="w-4/12 p-4 relative">
-            <img
-              src={CDN_URL + item.card.info.imageId}
-              className="w-full h-20 shadow-lg"
-              alt="image not exist"
-              loading="lazy"
-            />
+            {item.card.info.imageId && (
+              <img
+                src={CDN_URL + item.card.info.imageId}
+                className="w-full h-20 shadow-lg"
+                alt="image not exist"
+                loading="lazy"
+              />
+            )}
+
             <div className="absolute bottom-[0px] left-1/2 transform -translate-x-1/2 w-full flex justify-center">
               <button
                 className="bg-black text-white px-4 py-2 shadow-lg rounded-lg text-xs"

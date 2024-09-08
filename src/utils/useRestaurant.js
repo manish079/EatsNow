@@ -12,6 +12,7 @@ const useRestaurant = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(SWIGGY_API); // Enable CORS extension to bypass CORS issue
+      // const response = await fetch("http://localhost:3000/api/restaurants"); // Enable CORS extension to bypass CORS issue
       const jsonData = await response.json();
 
       const restaurants =
